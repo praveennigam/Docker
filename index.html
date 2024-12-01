@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docker Commands</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      font-size: 3rem;
+      background: linear-gradient(45deg, #261682, #b8d543, #7e0d23);
+      background-clip: text;
+      color: transparent;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #0056b3;
+      margin-top: 20px;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    pre {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      overflow-x: auto;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .command {
+      margin: 10px 0;
+      padding: 15px;
+      background: linear-gradient(135deg, #e1e1e1, #f9f9f9);
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+    }
+
+    .command:hover {
+      background: linear-gradient(135deg, #f9f9f9, #e1e1e1);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .gradient-text {
+      background: linear-gradient(45deg, #ff6b6b, #1f2c7e, #6b5b95);
+      background-clip: text;
+      color: transparent;
+      font-weight: bold;
+    }
+
+    .example {
+      font-size: 1.1rem;
+      color: #333;
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      margin-top: 5px;
+      word-wrap: break-word;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-title {
+      margin-top: 20px;
+      font-size: 1.8rem;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Docker Commands</h1>
+  <div id="commands-container"></div>
+
+  <script>
+    const data = {
+      "docker_commands": {
+        "general": [
+          { "command": "docker --version", "description": "Shows the installed Docker version." },
+          { "command": "docker info", "description": "Displays system-wide information about Docker." },
+          { "command": "docker login", "description": "Authenticates to a Docker registry (e.g., Docker Hub).", "example": "docker login" },
+          { "command": "docker logout", "description": "Logs out from a Docker registry.", "example": "docker logout" },
+          { "command": "docker help", "description": "Displays help information for Docker commands." },
+          { "command": "docker version", "description": "Displays the version of the Docker client and server." }
+        ],
+        "image": [
+          { "command": "docker pull <image>:<tag>", "description": "Downloads an image from a Docker registry.", "example": "docker pull ubuntu:latest" },
+          { "command": "docker images", "description": "Lists all local images." },
+          { "command": "docker rmi <image>", "description": "Removes an image from your local machine.", "example": "docker rmi ubuntu" },
+          { "command": "docker build -t <name>:<tag> <path>", "description": "Builds an image from a Dockerfile.", "example": "docker build -t myapp:1.0 ." },
+          { "command": "docker tag <image>:<tag> <new_image>:<new_tag>", "description": "Tags an existing image with a new name.", "example": "docker tag myapp:1.0 myapp:latest" },
+          { "command": "docker push <image>:<tag>", "description": "Uploads an image to a Docker registry.", "example": "docker push myapp:latest" },
+          { "command": "docker push <repository>/<image>:<tag>", "description": "Pushes an image to a specified repository on Docker Hub.", "example": "docker push username/myapp:latest" }
+        ],
+        "container": [
+          { "command": "docker run <options> <image>", "description": "Runs a container based on the specified image.", "example": "docker run -d --name mycontainer ubuntu" },
+          { "command": "docker ps", "description": "Lists currently running containers." },
+          { "command": "docker ps -a", "description": "Lists all containers, including stopped ones." },
+          { "command": "docker exec -it <container> <command>", "description": "Executes a command inside a running container.", "example": "docker exec -it mycontainer bash" },
+          { "command": "docker stop <container>", "description": "Stops a running container gracefully.", "example": "docker stop mycontainer" },
+          { "command": "docker start <container>", "description": "Starts a stopped container.", "example": "docker start mycontainer" },
+          { "command": "docker restart <container>", "description": "Restarts a running or stopped container.", "example": "docker restart mycontainer" },
+          { "command": "docker rm <container>", "description": "Removes a stopped container.", "example": "docker rm mycontainer" },
+          { "command": "docker logs <container>", "description": "Displays logs from a specified container.", "example": "docker logs mycontainer" },
+          { "command": "docker attach <container>", "description": "Attaches to a running container's STDOUT and STDERR.", "example": "docker attach mycontainer" }
+        ],
+        "volume": [
+          { "command": "docker volume ls", "description": "Lists all Docker volumes." },
+          { "command": "docker volume create <volume_name>", "description": "Creates a new volume.", "example": "docker volume create myvolume" },
+          { "command": "docker volume inspect <volume>", "description": "Displays detailed information about a volume.", "example": "docker volume inspect myvolume" },
+          { "command": "docker volume rm <volume>", "description": "Removes a volume.", "example": "docker volume rm myvolume" }
+        ],
+        "network": [
+          { "command": "docker network ls", "description": "Lists all Docker networks." },
+          { "command": "docker network create <network_name>", "description": "Creates a new network.", "example": "docker network create mynetwork" },
+          { "command": "docker network inspect <network>", "description": "Displays detailed information about a network.", "example": "docker network inspect mynetwork" },
+          { "command": "docker network rm <network>", "description": "Removes a network.", "example": "docker network rm mynetwork" },
+          { "command": "docker network connect <network> <container>", "description": "Connects a container to a network.", "example": "docker network connect mynetwork mycontainer" },
+          { "command": "docker network disconnect <network> <container>", "description": "Disconnects a container from a network.", "example": "docker network disconnect mynetwork mycontainer" }
+        ],
+        "docker_compose": {
+          "yaml_example": {
+            "version": "3",
+            "services": {
+              "web": {
+                "image": "nginx:latest",
+                "ports": ["80:80"]
+              },
+              "db": {
+                "image": "postgres:latest",
+                "environment": {
+                  "POSTGRES_USER": "user",
+                  "POSTGRES_PASSWORD": "password"
+                },
+                "volumes": ["db_data:/var/lib/postgresql/data"]
+              }
+            },
+            "volumes": {
+              "db_data": {}
+            }
+          },
+          "commands": [
+            { "command": "docker-compose up", "description": "Starts all services defined in the docker-compose.yml file.", "example": "docker-compose up -d" },
+            { "command": "docker-compose down", "description": "Stops and removes all containers, networks, and volumes defined in the Compose file.", "example": "docker-compose down" },
+            { "command": "docker-compose logs", "description": "Displays logs for all services in the Compose application.", "example": "docker-compose logs" },
+            { "command": "docker-compose exec <service> <command>", "description": "Executes a command in a running service container defined in the Docker Compose file.", "example": "docker-compose exec web bash" },
+            { "command": "docker-compose build", "description": "Builds or rebuilds services defined in the Compose file.", "example": "docker-compose build" },
+            { "command": "docker-compose scale <service>=<number>", "description": "Scales a service to the specified number of instances.", "example": "docker-compose scale web=3" }
+          ]
+        },
+        "swarm": [
+          { "command": "docker swarm init", "description": "Initializes a new swarm." },
+          { "command": "docker swarm join", "description": "Joins a node to an existing swarm." },
+          { "command": "docker service create", "description": "Creates a new service in a swarm.", "example": "docker service create --name my_service nginx" },
+          { "command": "docker stack deploy -c <file.yml> <stack_name>", "description": "Deploys a stack defined in a Docker Compose file in swarm mode.", "example": "docker stack deploy -c docker-compose.yml mystack" },
+          { "command": "docker service ls", "description": "Lists all services in the swarm." },
+          { "command": "docker service update <service>", "description": "Updates a running service.", "example": "docker service update my_service --image nginx:latest" }
+        ],
+        "system": [
+          { "command": "docker system df", "description": "Displays disk usage by Docker." },
+          { "command": "docker system prune", "description": "Cleans up unused Docker objects (containers, networks, images, build cache)." },
+          { "command": "docker system events", "description": "Shows real-time events occurring in Docker." },
+          { "command": "docker version", "description": "Displays the Docker version information." }
+        ],
+        "advanced": [
+          { "command": "docker inspect <container/image>", "description": "Provides detailed information about a container or image in JSON format." },
+          { "command": "docker commit <container> <new_image>", "description": "Creates a new image from a container's changes." },
+          { "command": "docker export <container> > <file.tar>", "description": "Exports a container’s filesystem as a tar archive." },
+          { "command": "docker import <file.tar>", "description": "Creates a new image from a tar archive of a filesystem." },
+          { "command": "docker stats", "description": "Displays a live stream of container resource usage statistics." },
+          { "command": "docker cp <container>:<path> <host_path>", "description": "Copies files/folders from a container to the host.", "example": "docker cp mycontainer:/usr/src/app /host/destination" },
+          { "command": "docker cp <host_path> <container>:<path>", "description": "Copies files/folders from the host to a container.", "example": "docker cp /host/source mycontainer:/usr/src/app" }
+        ],
+        "python": [
+          { "command": "docker run -d -p 5000:5000 <image>", "description": "Runs a Python web application in a container.", "example": "docker run -d -p 5000:5000 mypythonapp" },
+          { "command": "docker build -t mypythonapp .", "description": "Builds a Docker image for a Python application.", "example": "docker build -t mypythonapp ." },
+          { "command": "docker run -it --rm <image> python <script.py>", "description": "Runs a Python script in a container.", "example": "docker run -it --rm mypythonapp python app.py" },
+          { "command": "docker-compose up", "description": "Starts a Python application defined in docker-compose.yml.", "example": "docker-compose up -d" },
+          { "command": "docker-compose exec <service> python <script.py>", "description": "Executes a Python script in a running service container.", "example": "docker-compose exec web python app.py" }
+        ],
+        "docker_secrets": [
+          { "command": "docker secret create <secret_name> <file>", "description": "Creates a new secret in Docker Swarm.", "example": "docker secret create my_secret ./secret_file.txt" },
+          { "command": "docker secret ls", "description": "Lists all secrets in the swarm." },
+          { "command": "docker secret inspect <secret_name>", "description": "Displays detailed information about a secret." },
+          { "command": "docker secret rm <secret_name>", "description": "Removes a secret from Docker Swarm." }
+        ],
+        "docker_registry": [
+          { "command": "docker login <registry_url>", "description": "Logs in to a private Docker registry.", "example": "docker login myregistry.example.com" },
+          { "command": "docker logout <registry_url>", "description": "Logs out from a private Docker registry.", "example": "docker logout myregistry.example.com" },
+          { "command": "docker push <registry_url>/<image>:<tag>", "description": "Pushes an image to a private Docker registry.", "example": "docker push myregistry.example.com/myapp:latest" }
+        ],
+        "docker_security": [
+          { "command": "docker trust signer add <key> <image>", "description": "Adds a signer key for content trust on an image." },
+          { "command": "docker trust inspect <image>", "description": "Displays the trust data for an image." },
+          { "command": "docker security scan <image>", "description": "Scans an image for vulnerabilities." }
+        ]
+      }
+    };
+
+    function displayCommands() {
+      const container = document.getElementById('commands-container');
+      for (const category in data.docker_commands) {
+        const section = document.createElement('div');
+        const title = document.createElement('h2');
+        title.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+        section.appendChild(title);
+
+        const commands = data.docker_commands[category];
+        if (Array.isArray(commands)) {
+          commands.forEach(cmd => {
+            const commandDiv = document.createElement('div');
+            commandDiv.classList.add('command');
+            commandDiv.innerHTML = `<strong>Command:</strong> <span class="gradient-text">${cmd.command}</span><br>
+                                                <strong>Description:</strong> ${cmd.description}` +
+              (cmd.example ? `<br><strong>Example:</strong> <div class="example"><pre>${cmd.example}</pre></div>` : '');
+            section.appendChild(commandDiv);
+          });
+        } else if (typeof commands === 'object') {
+          const yamlExampleDiv = document.createElement('div');
+          yamlExampleDiv.classList.add('command');
+          yamlExampleDiv.innerHTML = `<strong>Docker Compose YAML Example:</strong><pre>${JSON.stringify(commands.yaml_example, null, 2)}</pre>`;
+          section.appendChild(yamlExampleDiv);
+
+          commands.commands.forEach(cmd => {
+            const commandDiv = document.createElement('div');
+            commandDiv.classList.add('command');
+            commandDiv.innerHTML = `<strong>Command:</strong> <span class="gradient-text">${cmd.command}</span><br>
+                                                <strong>Description:</strong> ${cmd.description}` +
+              (cmd.example ? `<br><strong>Example:</strong> <div class="example"><pre>${cmd.example}</pre></div>` : '');
+            section.appendChild(commandDiv);
+          });
+        }
+        container.appendChild(section);
+      }
+    }
+
+    displayCommands();
+  </script>
+
+</body>
+
+</html>
